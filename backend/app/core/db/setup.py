@@ -10,8 +10,8 @@ engine = create_engine(get_env("DB_STRING"))
 
 def setup_db():
     try:
-        engine.connect()
-        log_success("Connected to database!")
+        with engine.connect():
+            log_success("Connected to database!")
     except OperationalError as e:
         log_error(f"Error connecting to DB: {e}")
 

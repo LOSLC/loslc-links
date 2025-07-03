@@ -26,7 +26,7 @@ class User(SQLModel, table=True):
         back_populates="user", cascade_delete=True
     )
     roles: list["Role"] = Relationship(
-        back_populates="users", link_model=RoleUserLink, cascade_delete=True
+        back_populates="users", link_model=RoleUserLink
     )
     links: List["Link"] = Relationship(
         back_populates="author", cascade_delete=True

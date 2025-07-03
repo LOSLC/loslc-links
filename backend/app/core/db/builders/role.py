@@ -9,7 +9,7 @@ class RoleBuilder:
         self.users: List[User] = []
         self.permissions: List[Permission] = []
 
-    def withName(self, name: str):
+    def withName(self, name: str | None):
         self.name = name
         return self
 
