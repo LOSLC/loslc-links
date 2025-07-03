@@ -4,7 +4,13 @@ from fastapi import APIRouter, Depends, Query
 from sqlmodel import Session
 
 from app.api.routes.v1.dto.message import MessageResponse
-from app.api.routes.v1.dto.user import PermissionDTO, RoleDTO, UserDTO, CreateRoleDTO, CreatePermissionDTO
+from app.api.routes.v1.dto.user import (
+    CreatePermissionDTO,
+    CreateRoleDTO,
+    PermissionDTO,
+    RoleDTO,
+    UserDTO,
+)
 from app.api.routes.v1.providers import user as user_provider
 from app.api.routes.v1.providers.auth import get_current_user
 from app.core.db.models import User
@@ -13,7 +19,7 @@ from app.core.db.setup import create_db_session
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-@router.get("/", response_model=List[UserDTO])
+@router.get("", response_model=List[UserDTO])
 async def get_users(
     current_user: Annotated[User, Depends(get_current_user)],
     db_session: Annotated[Session, Depends(create_db_session)],
