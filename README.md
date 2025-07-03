@@ -69,7 +69,7 @@ cp .env.example .env
 uv run alembic upgrade head
 
 # Start the development server
-uv run uvicorn app.app:app --reload --host 0.0.0.0 --port 8000
+uv run main.py
 ```
 
 #### Frontend Setup
