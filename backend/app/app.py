@@ -33,9 +33,9 @@ app.include_router(v1_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000"
-        "http://link.loslc.tech"
-        "https://link.loslc.tech"
+        "http://localhost:3000",
+        "http://link.loslc.tech",
+        "https://link.loslc.tech",
     ],  # Or ["http://localhost:3000"] for stricter control
     allow_credentials=True,
     allow_methods=["*"],
