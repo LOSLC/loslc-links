@@ -14,8 +14,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const link = await apiClient.getLinkByLabel(label);
 
     return {
-      title: `${link.label} - Link Shortener`,
+      title: `${link.label} - LOSL-C Links`,
       description: link.description || `Redirecting to ${link.url}`,
+      icons: "/favicon.png",
       openGraph: {
         title: link.label,
         description: link.description || `Redirecting to ${link.url}`,
@@ -25,6 +26,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } catch {
     return {
       title: "Link Not Found",
+      icons: "/favicon.png",
+      openGraph: {
+        title: "Link Not Found",
+      },
       description: "The requested link could not be found",
     };
   }

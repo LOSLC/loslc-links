@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Link Shortener - Shorten and Manage Your Links",
-  description: "A powerful link shortener with admin capabilities. Create, manage, and track your shortened URLs.",
+  title: "LOSL-C Links",
+  description: "A collection of links for the LOSL-C community",
+  icons: "/favicon.png"
 };
 
 export default function RootLayout({
