@@ -235,13 +235,13 @@ async def get_all_permissions(
             ),
         ],
     ).check(either=True)
-    permissions = db_session.exec(select(Permission).offset(skip).limit(limit)).all()
+    permissions = db_session.exec(
+        select(Permission).offset(skip).limit(limit)
+    ).all()
     return [permission.to_dto() for permission in permissions]
 
 
-async def create_role(
-    db_session: Session, current_user: User, role_name: str
-):
+async def create_role(db_session: Session, current_user: User, role_name: str):
     PermissionChecker(
         db_session=db_session,
         roles=current_user.roles,
@@ -258,9 +258,7 @@ async def create_role(
     return MessageResponse(message=f"Role '{role_name}' created successfully.")
 
 
-async def delete_role(
-    db_session: Session, current_user: User, role_id: str
-):
+async def delete_role(db_session: Session, current_user: User, role_id: str):
     PermissionChecker(
         db_session=db_session,
         roles=current_user.roles,
@@ -276,7 +274,7 @@ async def delete_role(
     )
     db_session.delete(role)
     db_session.commit()
-    return MessageResponse(message=f"Role deleted successfully.")
+    return MessageResponse(message="Role deleted successfully.")
 
 
 async def assign_role_to_user(
@@ -298,18 +296,17 @@ async def assign_role_to_user(
     role = check_existence(
         db_session.get(Role, role_id), detail="Role not found."
     )
-    
+
     # Check if user already has this role
     existing_link = db_session.exec(
         select(RoleUserLink).where(
-            RoleUserLink.user_id == user_id,
-            RoleUserLink.role_id == role_id
+            RoleUserLink.user_id == user_id, RoleUserLink.role_id == role_id
         )
     ).first()
-    
+
     if existing_link:
         return MessageResponse(message="User already has this role.")
-    
+
     role_user_link = RoleUserLink(user_id=user_id, role_id=role_id)
     db_session.add(role_user_link)
     db_session.commit()
@@ -364,7 +361,8 @@ async def delete_permission(
         ],
     ).check()
     permission = check_existence(
-        db_session.get(Permission, permission_id), detail="Permission not found."
+        db_session.get(Permission, permission_id),
+        detail="Permission not found.",
     )
     db_session.delete(permission)
     db_session.commit()

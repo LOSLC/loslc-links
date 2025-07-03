@@ -19,7 +19,7 @@ class PermissionBuilder:
         self.action_name = action
         return self
 
-    def withResourceId(self, resource_id: str):
+    def withResourceId(self, resource_id: str | None):
         self.resource_id = resource_id
         return self
 
