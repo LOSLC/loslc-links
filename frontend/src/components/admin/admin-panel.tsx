@@ -138,7 +138,7 @@ export function AdminPanel() {
 
       {/* Alert Messages */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center justify-between">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md flex items-center justify-between text-sm">
           <div className="flex items-center space-x-2">
             <AlertCircle className="h-5 w-5" />
             <span>{error}</span>
@@ -148,7 +148,7 @@ export function AdminPanel() {
       )}
 
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg flex items-center justify-between">
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md flex items-center justify-between text-sm">
           <div className="flex items-center space-x-2">
             <CheckCircle className="h-5 w-5" />
             <span>{success}</span>
@@ -159,9 +159,9 @@ export function AdminPanel() {
 
       {/* Content */}
       {activeTab === 'users' ? (
-        <Card className="shadow-sm">
-          <CardHeader className="bg-gray-50 border-b">
-            <CardTitle className="flex items-center space-x-2">
+        <Card className="shadow-sm border-gray-200">
+          <CardHeader className="border-b border-gray-200">
+            <CardTitle className="flex items-center space-x-2 text-gray-900">
               <Users className="h-5 w-5 text-gray-700" />
               <span>User Management</span>
               <span className="text-sm font-normal text-gray-500">
@@ -173,7 +173,7 @@ export function AdminPanel() {
           <CardContent className="p-0">
             {isLoading ? (
               <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600 mx-auto"></div>
                 <p className="mt-2 text-gray-600">Loading users...</p>
               </div>
             ) : (
@@ -185,11 +185,11 @@ export function AdminPanel() {
                   </div>
                 ) : (
                   users.map((user) => (
-                    <div key={user.id} className="hover:bg-gray-50 transition-colors">
+                    <div key={user.id} className="hover:bg-accent/50 transition-colors duration-200">
                       <div className="flex items-center justify-between p-4 sm:p-6">
                         <div className="flex items-center space-x-4 flex-1 min-w-0">
                           <div className="flex-shrink-0">
-                            <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
+                            <div className="h-10 w-10 rounded-full bg-gray-700 flex items-center justify-center">
                               <span className="text-white font-medium text-sm">
                                 {user.name.charAt(0).toUpperCase()}
                               </span>
@@ -218,7 +218,7 @@ export function AdminPanel() {
                             variant="ghost"
                             size="sm"
                             onClick={() => toggleUserExpansion(user.id)}
-                            className="text-gray-600 hover:text-gray-900"
+                            className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
                           >
                             {expandedUser === user.id ? (
                               <EyeOff className="h-4 w-4" />
@@ -231,7 +231,7 @@ export function AdminPanel() {
                             size="sm"
                             onClick={() => handleDeleteUser(user.id, user.name)}
                             disabled={isLoading}
-                            className="hover:bg-red-600"
+                            className="hover:bg-red-600 transition-colors"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -240,10 +240,10 @@ export function AdminPanel() {
                       
                       {/* Expanded User Details */}
                       {expandedUser === user.id && (
-                        <div className="px-4 sm:px-6 pb-4 border-t bg-gray-50">
+                        <div className="px-4 sm:px-6 pb-4 border-t border-gray-200 bg-gray-50">
                           <div className="pt-4">
                             <h5 className="font-medium text-gray-900 mb-3 flex items-center space-x-2">
-                              <UserCheck className="h-4 w-4" />
+                              <UserCheck className="h-4 w-4 text-gray-700" />
                               <span>User Roles</span>
                             </h5>
                             
@@ -253,11 +253,11 @@ export function AdminPanel() {
                                   {userRoles[user.id].map((role) => (
                                     <div
                                       key={role.id}
-                                      className="flex items-center justify-between bg-white px-3 py-2 rounded-lg border shadow-sm"
+                                      className="flex items-center justify-between bg-white px-3 py-2 rounded-md border border-gray-200 shadow-sm"
                                     >
                                       <div className="flex items-center space-x-2">
                                         <Shield className="h-4 w-4 text-gray-600" />
-                                        <span className="text-sm font-medium">
+                                        <span className="text-sm font-medium text-gray-900">
                                           {role.name || 'Unnamed Role'}
                                         </span>
                                       </div>
@@ -265,7 +265,7 @@ export function AdminPanel() {
                                         variant="ghost"
                                         size="sm"
                                         onClick={() => handleRemoveRole(user.id, role.id, role.name || 'role')}
-                                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                                        className="text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors"
                                       >
                                         <Trash2 className="h-3 w-3" />
                                       </Button>
