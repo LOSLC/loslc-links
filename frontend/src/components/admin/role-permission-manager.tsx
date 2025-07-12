@@ -180,7 +180,7 @@ export function RolePermissionManager() {
 
       {/* Alert Messages */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center space-x-2">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md flex items-center space-x-2 text-sm">
           <AlertCircle className="h-5 w-5" />
           <span>{error}</span>
           <Button variant="ghost" size="sm" onClick={clearMessages}>×</Button>
@@ -188,7 +188,7 @@ export function RolePermissionManager() {
       )}
 
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg flex items-center space-x-2">
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md flex items-center space-x-2 text-sm">
           <CheckCircle className="h-5 w-5" />
           <span>{success}</span>
           <Button variant="ghost" size="sm" onClick={clearMessages}>×</Button>
@@ -197,11 +197,11 @@ export function RolePermissionManager() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Roles Management */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+        <Card className="shadow-sm border-gray-200">
+          <CardHeader className="border-b border-gray-200">
+            <CardTitle className="flex items-center justify-between text-gray-900">
               <div className="flex items-center space-x-2">
-                <Shield className="h-5 w-5" />
+                <Shield className="h-5 w-5 text-gray-700" />
                 <span>Roles</span>
               </div>
               <Dialog open={isCreateRoleOpen} onOpenChange={setIsCreateRoleOpen}>
@@ -254,9 +254,9 @@ export function RolePermissionManager() {
                   </div>
                 ) : (
                   roles.map((role) => (
-                    <div key={role.id} className="flex justify-between items-center p-3 border rounded-lg bg-gray-50">
+                    <div key={role.id} className="flex justify-between items-center p-3 border border-gray-200 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors">
                       <div>
-                        <h4 className="font-medium">{role.name || 'Unnamed Role'}</h4>
+                        <h4 className="font-medium text-gray-900">{role.name || 'Unnamed Role'}</h4>
                         <p className="text-sm text-gray-600">
                           {role.permissions_count} permission(s)
                         </p>
@@ -266,6 +266,7 @@ export function RolePermissionManager() {
                         size="sm"
                         onClick={() => handleDeleteRole(role.id)}
                         disabled={isLoading}
+                        className="hover:bg-red-600 transition-colors"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -278,11 +279,11 @@ export function RolePermissionManager() {
         </Card>
 
         {/* Permissions Management */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+        <Card className="shadow-sm border-gray-200">
+          <CardHeader className="border-b border-gray-200">
+            <CardTitle className="flex items-center justify-between text-gray-900">
               <div className="flex items-center space-x-2">
-                <Key className="h-5 w-5" />
+                <Key className="h-5 w-5 text-gray-700" />
                 <span>Permissions</span>
               </div>
               <Dialog open={isCreatePermissionOpen} onOpenChange={setIsCreatePermissionOpen}>
@@ -410,11 +411,11 @@ export function RolePermissionManager() {
       </div>
 
       {/* Role Assignment */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
+      <Card className="shadow-sm border-gray-200">
+        <CardHeader className="border-b border-gray-200">
+          <CardTitle className="flex items-center justify-between text-gray-900">
             <div className="flex items-center space-x-2">
-              <UserPlus className="h-5 w-5" />
+              <UserPlus className="h-5 w-5 text-gray-700" />
               <span>Assign Roles to Users</span>
             </div>
             <Dialog open={isAssignRoleOpen} onOpenChange={setIsAssignRoleOpen}>
