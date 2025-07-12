@@ -185,7 +185,7 @@ export function AdminPanel() {
                   </div>
                 ) : (
                   users.map((user) => (
-                    <div key={user.id} className="hover:bg-accent/50 transition-colors duration-200">
+                    <div key={user.id} className="hover:bg-secondary/30 transition-colors duration-200">
                       <div className="flex items-center justify-between p-4 sm:p-6">
                         <div className="flex items-center space-x-4 flex-1 min-w-0">
                           <div className="flex-shrink-0">
