@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { AdminPanel } from '@/components/admin/admin-panel';
-import { LinkManager } from '@/components/links/link-manager';
-import { apiClient, UserDTO } from '@/lib/api';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { 
-  Shield, 
-  TrendingUp, 
+import { useState, useEffect } from "react";
+import { AdminPanel } from "@/components/admin/admin-panel";
+import { LinkManager } from "@/components/links/link-manager";
+import { apiClient, UserDTO } from "@/lib/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Shield,
+  TrendingUp,
   Link as LinkIcon,
   AlertTriangle,
   LogOut,
-  User
-} from 'lucide-react';
+  User,
+} from "lucide-react";
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -23,8 +23,10 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [currentUser, setCurrentUser] = useState<UserDTO | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [activeSection, setActiveSection] = useState<'admin' | 'links'>('admin');
+  const [error, setError] = useState("");
+  const [activeSection, setActiveSection] = useState<"admin" | "links">(
+    "admin",
+  );
 
   useEffect(() => {
     loadUserData();
@@ -39,7 +41,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
       setCurrentUser(user);
       setIsAdmin(adminStatus);
     } catch {
-      setError('Failed to load user data');
+      setError("Failed to load user data");
       setIsAdmin(false);
     } finally {
       setIsLoading(false);
@@ -51,7 +53,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
       await apiClient.logout();
       onLogout();
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error("Logout failed:", error);
       onLogout(); // Force logout even if API call fails
     }
   };
@@ -78,7 +80,8 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
         </CardHeader>
         <CardContent>
           <p className="text-gray-600 mb-4">
-            {error || 'You do not have administrator privileges to access this page.'}
+            {error ||
+              "You do not have administrator privileges to access this page."}
           </p>
           <Button onClick={handleLogout} variant="outline" className="w-full">
             <LogOut className="h-4 w-4 mr-2" />
@@ -105,11 +108,11 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   <span className="sm:hidden">Admin</span>
                 </h1>
               </div>
-              
+
               {/* Mobile logout button */}
-              <Button 
-                onClick={handleLogout} 
-                variant="ghost" 
+              <Button
+                onClick={handleLogout}
+                variant="ghost"
                 size="sm"
                 className="sm:hidden ml-2"
               >
@@ -130,22 +133,22 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
               {/* Section Toggle */}
               <div className="flex bg-gray-100 rounded-lg p-1 flex-1 sm:flex-none">
                 <button
-                  onClick={() => setActiveSection('admin')}
+                  onClick={() => setActiveSection("admin")}
                   className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-colors text-center ${
-                    activeSection === 'admin'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                    activeSection === "admin"
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
                   <span className="hidden sm:inline">Admin</span>
                   <span className="sm:hidden">Panel</span>
                 </button>
                 <button
-                  onClick={() => setActiveSection('links')}
+                  onClick={() => setActiveSection("links")}
                   className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-colors text-center ${
-                    activeSection === 'links'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                    activeSection === "links"
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
                   <span className="hidden sm:inline">My Links</span>
@@ -154,9 +157,9 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
               </div>
 
               {/* Desktop logout button */}
-              <Button 
-                onClick={handleLogout} 
-                variant="ghost" 
+              <Button
+                onClick={handleLogout}
+                variant="ghost"
                 size="sm"
                 className="hidden sm:flex flex-shrink-0"
               >
@@ -181,7 +184,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
-        {activeSection === 'admin' ? (
+        {activeSection === "admin" ? (
           <div className="space-y-4 sm:space-y-6 lg:space-y-8">
             {/* Admin Stats Overview */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -235,7 +238,9 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
           <div className="space-y-4 sm:space-y-6">
             <div className="flex items-center space-x-2">
               <LinkIcon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 flex-shrink-0" />
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">My Links</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                My Links
+              </h2>
             </div>
             <LinkManager />
           </div>
