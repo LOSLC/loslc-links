@@ -70,22 +70,22 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center">
-            {isLogin ? 'Login' : 'Register'}
+    <div className="w-full">
+      <Card className="shadow-sm border-gray-200">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-xl text-center text-gray-900">
+            {isLogin ? 'Sign In' : 'Create Account'}
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           {error && (
-            <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded mb-4">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
               {error}
             </div>
           )}
           
           {successMessage && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm">
               {successMessage}
             </div>
           )}
@@ -164,11 +164,11 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
             )}
             
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Loading...' : (isLogin ? 'Login' : 'Register')}
+              {isLoading ? 'Loading...' : (isLogin ? 'Sign In' : 'Create Account')}
             </Button>
           </form>
           
-          <div className="mt-4 text-center">
+          <div className="mt-6 text-center">
             <button
               type="button"
               onClick={() => {
@@ -176,9 +176,9 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
                 setError('');
                 setSuccessMessage('');
               }}
-              className="text-primary hover:text-primary/80 text-sm underline-offset-4 hover:underline"
+              className="text-gray-600 hover:text-gray-900 text-sm transition-colors"
             >
-              {isLogin ? "Don't have an account? Register" : "Already have an account? Login"}
+              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
             </button>
           </div>
         </CardContent>

@@ -184,44 +184,44 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
         {activeSection === 'admin' ? (
           <div className="space-y-4 sm:space-y-6 lg:space-y-8">
             {/* Admin Stats Overview */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-              <Card className="border-l-4 border-l-gray-400">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <Card className="border-l-4 border-l-gray-400 shadow-sm border-gray-200">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
+                  <CardTitle className="text-sm font-medium text-gray-600">
                     Admin Panel
                   </CardTitle>
                   <Shield className="h-4 w-4 text-gray-600 flex-shrink-0" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm sm:text-base lg:text-lg font-semibold text-gray-800">
+                  <div className="text-base sm:text-lg font-semibold text-gray-800">
                     User & Role Management
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-gray-500">
+              <Card className="border-l-4 border-l-gray-500 shadow-sm border-gray-200">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
+                  <CardTitle className="text-sm font-medium text-gray-600">
                     System Status
                   </CardTitle>
                   <TrendingUp className="h-4 w-4 text-gray-600 flex-shrink-0" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm sm:text-base lg:text-lg font-semibold text-gray-800">
+                  <div className="text-base sm:text-lg font-semibold text-gray-800">
                     Operational
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-gray-600 sm:col-span-2 lg:col-span-1">
+              <Card className="border-l-4 border-l-gray-600 shadow-sm border-gray-200 sm:col-span-2 lg:col-span-1">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
+                  <CardTitle className="text-sm font-medium text-gray-600">
                     Current User
                   </CardTitle>
                   <User className="h-4 w-4 text-gray-600 flex-shrink-0" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm sm:text-base lg:text-lg font-semibold text-gray-800 truncate">
+                  <div className="text-base sm:text-lg font-semibold text-gray-800 truncate">
                     {currentUser?.name}
                   </div>
                 </CardContent>
