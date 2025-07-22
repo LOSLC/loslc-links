@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { LinkManager } from '@/components/links/link-manager';
 import { AdminPanel } from '@/components/admin/admin-panel';
+import { AllLinksManager } from '@/components/admin/all-links-manager';
 import { apiClient, UserDTO } from '@/lib/api';
 import { LogOut, Link as LinkIcon, Shield, User } from 'lucide-react';
 
@@ -14,7 +15,7 @@ interface DashboardProps {
 export function Dashboard({ onLogout }: DashboardProps) {
   const [currentUser, setCurrentUser] = useState<UserDTO | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [activeTab, setActiveTab] = useState<'links' | 'admin'>('links');
+  const [activeTab, setActiveTab] = useState<'links' | 'all-links' | 'admin'>('links');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -141,8 +142,23 @@ export function Dashboard({ onLogout }: DashboardProps) {
                 >
                   <LinkIcon className="h-4 w-4 flex-shrink-0" />
                   <span className="hidden xs:inline sm:inline">My Links</span>
-                  <span className="xs:hidden sm:hidden">Links</span>
+                  <span className="xs:hidden sm:hidden">Mine</span>
                 </button>
+                
+                {isAdmin && (
+                  <button
+                    onClick={() => setActiveTab('all-links')}
+                    className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors flex-1 sm:flex-none justify-center sm:justify-start ${
+                      activeTab === 'all-links'
+                        ? 'bg-gray-200 text-gray-900'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    }`}
+                  >
+                    <LinkIcon className="h-4 w-4 flex-shrink-0" />
+                    <span className="hidden xs:inline sm:inline">All Links</span>
+                    <span className="xs:hidden sm:hidden">All</span>
+                  </button>
+                )}
                 
                 {isAdmin && (
                   <button
@@ -179,6 +195,7 @@ export function Dashboard({ onLogout }: DashboardProps) {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {activeTab === 'links' && <LinkManager />}
+        {activeTab === 'all-links' && isAdmin && <AllLinksManager />}
         {activeTab === 'admin' && isAdmin && <AdminPanel />}
       </main>
     </div>

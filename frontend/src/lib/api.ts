@@ -120,6 +120,10 @@ class ApiClient {
   }
 
   // Link endpoints
+  async getAllLinks(skip = 0, limit = 10): Promise<LinkDTO[]> {
+    return this.api.get(`api/v1/links/all?skip=${skip}&limit=${limit}`).json();
+  }
+
   async getMyLinks(skip = 0, limit = 10): Promise<LinkDTO[]> {
     return this.api.get(`api/v1/links?skip=${skip}&limit=${limit}`).json();
   }
