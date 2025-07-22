@@ -17,6 +17,24 @@ from app.core.db.setup import create_db_session
 router = APIRouter(prefix="/links", tags=["Links"])
 
 
+@router.get("/all", response_model=List[LinkDTO])
+async def get_all_links(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db_session: Annotated[Session, Depends(create_db_session)],
+    skip: int = Query(0, ge=0, description="Number of links to skip"),
+    limit: int = Query(
+        10, ge=1, le=100, description="Number of links to return"
+    ),
+):
+    """Get all links"""
+    return await link_provider.get_all_links(
+        db_session=db_session,
+        current_user=current_user,
+        skip=skip,
+        limit=limit,
+    )
+
+
 @router.get("/{link_id}", response_model=LinkDTO)
 async def get_link_by_id(
     link_id: str,
@@ -108,7 +126,7 @@ async def get_user_links(
     ),
 ):
     """Get links for a specific user (admin only or with proper permissions)."""
-    return link_provider.get_user_link(
+    return await link_provider.get_user_link(
         db_session=db_session,
         current_user=current_user,
         target_user_id=user_id,

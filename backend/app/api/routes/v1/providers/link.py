@@ -1,5 +1,5 @@
 from pydantic import Field
-from sqlmodel import Session, select
+from sqlmodel import Session, desc, select
 
 from app.api.routes.v1.dto.link import LinkCreationDTO, LinkUpdateDTO
 from app.api.routes.v1.dto.message import MessageResponse
@@ -118,7 +118,7 @@ async def delete_link(db_session: Session, current_user: User, link_id: str):
     return MessageResponse(message="Link deleted successfully.")
 
 
-def get_user_link(
+async def get_user_link(
     db_session: Session,
     current_user: User,
     target_user_id: str,
@@ -147,4 +147,26 @@ def get_user_link(
         .offset(skip)
         .limit(limit)
     ).all()
+    return [link.to_dto() for link in links]
+
+
+async def get_all_links(
+    db_session: Session, current_user: User, skip: int, limit: int
+):
+    PermissionChecker(
+        db_session=db_session,
+        roles=current_user.roles,
+        bypass_role=ADMIN_ROLE_NAME,
+        pcheck_models=[
+            GlobalPermissionCheckModel(
+                resource_name=LINK_RESOURCE, action_names=[ACTION_READ]
+            ),
+            GlobalPermissionCheckModel(
+                resource_name=LINK_RESOURCE, action_names=[ACTION_READWRITE]
+            ),
+        ],
+    ).check(either=True)
+    links = db_session.exec(
+        select(Link).offset(skip).limit(limit).order_by(desc(Link.created_at))
+    )
     return [link.to_dto() for link in links]
