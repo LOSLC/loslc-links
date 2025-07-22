@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { AdminPanel } from "@/components/admin/admin-panel";
+import { AllLinksManager } from "@/components/admin/all-links-manager";
 import { LinkManager } from "@/components/links/link-manager";
 import { apiClient, UserDTO } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,7 +25,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const [activeSection, setActiveSection] = useState<"admin" | "links">(
+  const [activeSection, setActiveSection] = useState<"admin" | "all-links" | "my-links">(
     "admin",
   );
 
@@ -144,15 +145,26 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   <span className="sm:hidden">Panel</span>
                 </button>
                 <button
-                  onClick={() => setActiveSection("links")}
+                  onClick={() => setActiveSection("all-links")}
                   className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-colors text-center ${
-                    activeSection === "links"
+                    activeSection === "all-links"
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  <span className="hidden sm:inline">All Links</span>
+                  <span className="sm:hidden">All</span>
+                </button>
+                <button
+                  onClick={() => setActiveSection("my-links")}
+                  className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-colors text-center ${
+                    activeSection === "my-links"
                       ? "bg-white text-gray-900 shadow-sm"
                       : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
                   <span className="hidden sm:inline">My Links</span>
-                  <span className="sm:hidden">Links</span>
+                  <span className="sm:hidden">Mine</span>
                 </button>
               </div>
 
@@ -233,6 +245,16 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
             {/* Admin Panel */}
             <AdminPanel />
+          </div>
+        ) : activeSection === "all-links" ? (
+          <div className="space-y-4 sm:space-y-6">
+            <div className="flex items-center space-x-2">
+              <LinkIcon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 flex-shrink-0" />
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+                All Links
+              </h1>
+            </div>
+            <AllLinksManager />
           </div>
         ) : (
           <div className="space-y-4 sm:space-y-6">
