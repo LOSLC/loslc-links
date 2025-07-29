@@ -1,6 +1,6 @@
-import ky from 'ky';
+import ky from "ky";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://api.link.loslc.tech";
 
 export interface LoginData {
   email: string;
@@ -83,9 +83,9 @@ class ApiClient {
   constructor() {
     this.api = ky.create({
       prefixUrl: API_BASE_URL,
-      credentials: 'include',
+      credentials: "include",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       hooks: {
         beforeError: [
@@ -93,30 +93,31 @@ class ApiClient {
             const { response } = error;
             if (response && response.body) {
               const errorText = await response.text();
-              error.message = errorText || `HTTP error! status: ${response.status}`;
+              error.message =
+                errorText || `HTTP error! status: ${response.status}`;
             }
             return error;
-          }
-        ]
-      }
+          },
+        ],
+      },
     });
   }
 
   // Auth endpoints
   async login(data: LoginData): Promise<MessageResponse> {
-    return this.api.post('api/v1/auth/login', { json: data }).json();
+    return this.api.post("api/v1/auth/login", { json: data }).json();
   }
 
   async register(data: RegisterData): Promise<MessageResponse> {
-    return this.api.post('api/v1/auth/register', { json: data }).json();
+    return this.api.post("api/v1/auth/register", { json: data }).json();
   }
 
   async logout(): Promise<MessageResponse> {
-    return this.api.post('api/v1/auth/logout').json();
+    return this.api.post("api/v1/auth/logout").json();
   }
 
   async getCurrentUser(): Promise<UserDTO> {
-    return this.api.get('api/v1/auth/me').json();
+    return this.api.get("api/v1/auth/me").json();
   }
 
   // Link endpoints
@@ -137,11 +138,11 @@ class ApiClient {
   }
 
   async createLink(data: LinkCreationDTO): Promise<LinkDTO> {
-    return this.api.post('api/v1/links', { json: data }).json();
+    return this.api.post("api/v1/links", { json: data }).json();
   }
 
   async updateLink(data: LinkUpdateDTO): Promise<LinkDTO> {
-    return this.api.put('api/v1/links', { json: data }).json();
+    return this.api.put("api/v1/links", { json: data }).json();
   }
 
   async deleteLink(id: string): Promise<MessageResponse> {
@@ -149,7 +150,9 @@ class ApiClient {
   }
 
   async getUserLinks(userId: string, skip = 0, limit = 10): Promise<LinkDTO[]> {
-    return this.api.get(`api/v1/links/user/${userId}?skip=${skip}&limit=${limit}`).json();
+    return this.api
+      .get(`api/v1/links/user/${userId}?skip=${skip}&limit=${limit}`)
+      .json();
   }
 
   // User endpoints
@@ -162,45 +165,65 @@ class ApiClient {
   }
 
   async getUserRoles(userId: string, skip = 0, limit = 10): Promise<RoleDTO[]> {
-    return this.api.get(`api/v1/users/${userId}/roles?skip=${skip}&limit=${limit}`).json();
+    return this.api
+      .get(`api/v1/users/${userId}/roles?skip=${skip}&limit=${limit}`)
+      .json();
   }
 
-  async getRolePermissions(roleId: string, skip = 0, limit = 10): Promise<PermissionDTO[]> {
-    return this.api.get(`api/v1/users/roles/${roleId}/permissions?skip=${skip}&limit=${limit}`).json();
+  async getRolePermissions(
+    roleId: string,
+    skip = 0,
+    limit = 10,
+  ): Promise<PermissionDTO[]> {
+    return this.api
+      .get(
+        `api/v1/users/roles/${roleId}/permissions?skip=${skip}&limit=${limit}`,
+      )
+      .json();
   }
 
-  async removeRoleFromUser(userId: string, roleId: string): Promise<MessageResponse> {
+  async removeRoleFromUser(
+    userId: string,
+    roleId: string,
+  ): Promise<MessageResponse> {
     return this.api.delete(`api/v1/users/${userId}/roles/${roleId}`).json();
   }
 
   async isAdmin(): Promise<boolean> {
-    return this.api.get('api/v1/users/admin-check').json();
+    return this.api.get("api/v1/users/admin-check").json();
   }
 
   // Role management endpoints
   async getAllRoles(skip = 0, limit = 10): Promise<RoleDTO[]> {
-    return this.api.get(`api/v1/users/roles?skip=${skip}&limit=${limit}`).json();
+    return this.api
+      .get(`api/v1/users/roles?skip=${skip}&limit=${limit}`)
+      .json();
   }
 
   async createRole(data: CreateRoleDTO): Promise<MessageResponse> {
-    return this.api.post('api/v1/users/roles', { json: data }).json();
+    return this.api.post("api/v1/users/roles", { json: data }).json();
   }
 
   async deleteRole(roleId: string): Promise<MessageResponse> {
     return this.api.delete(`api/v1/users/roles/${roleId}`).json();
   }
 
-  async assignRoleToUser(userId: string, roleId: string): Promise<MessageResponse> {
+  async assignRoleToUser(
+    userId: string,
+    roleId: string,
+  ): Promise<MessageResponse> {
     return this.api.post(`api/v1/users/${userId}/roles/${roleId}`).json();
   }
 
   // Permission management endpoints
   async getAllPermissions(skip = 0, limit = 10): Promise<PermissionDTO[]> {
-    return this.api.get(`api/v1/users/permissions?skip=${skip}&limit=${limit}`).json();
+    return this.api
+      .get(`api/v1/users/permissions?skip=${skip}&limit=${limit}`)
+      .json();
   }
 
   async createPermission(data: CreatePermissionDTO): Promise<MessageResponse> {
-    return this.api.post('api/v1/users/permissions', { json: data }).json();
+    return this.api.post("api/v1/users/permissions", { json: data }).json();
   }
 
   async deletePermission(permissionId: string): Promise<MessageResponse> {
