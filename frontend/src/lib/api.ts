@@ -1,6 +1,6 @@
 import ky from "ky";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://api.link.loslc.tech";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.link.loslc.tech";
 
 export interface LoginData {
   email: string;
